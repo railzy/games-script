@@ -3,10 +3,42 @@ from common.scene import Scene
 from common.tool import load_resource
 from azurelane.assist import calculate_move_map
 
+###自己添加
+
+def siren_heavy_blue(prefix):
+    return Scene("检测蓝色塞壬重巡",identify_image=load_resource("map_siren_heavy_blue.png", prefix))  #判断塞壬蓝色重巡
+def siren_heavy_purple(prefix):
+    return Scene("检测紫色塞壬重巡",identify_image=load_resource("map_siren_heavy_purple.png", prefix))  # 判断紫色塞壬重巡
+def siren_light_blue(prefix):
+    return Scene("检测蓝色塞壬轻巡",
+                 identify_image=load_resource("map_siren_light_blue.png", prefix),
+                 tap_offset_x=0, tap_offset_y=55, threshold=0.9)  # 判断蓝色塞壬轻巡
+def siren_DD_blue(prefix):
+    return Scene("检测蓝色塞壬驱逐",
+                 identify_image=load_resource("map_siren_DD_blue.png", prefix),
+                 tap_offset_x=0, tap_offset_y=55, threshold=0.9)  # 判断蓝色塞壬驱逐
+
+def ship_202005_light(prefix):
+    return Scene("检测圣穹轻巡",identify_image=load_resource("map_ship_202005_light.png", prefix))  #判断圣穹轻巡
+def ship_202005_light_1(prefix):
+    return Scene("检测圣穹轻巡",identify_image=load_resource("map_ship_202005_light_1.png", prefix))  #判断圣穹轻巡
+def ship_202005_heavy(prefix):
+    return Scene("检测圣穹重巡",identify_image=load_resource("map_ship_202005_heavy.png", prefix))  #判断圣穹轻巡
+def ship_202005_heavy_1(prefix):
+    return Scene("检测圣穹重巡",identify_image=load_resource("map_ship_202005_heavy_1.png", prefix))  #判断圣穹轻巡
+
+def ship_202006_sp3_1(prefix):
+    return Scene("检测峡湾反击驱逐",identify_image=load_resource("map_ship_202006_dd_1.png", prefix))  #判断峡湾反击驱逐
+def ship_202006_sp3_2(prefix):
+    return Scene("检测峡湾反击驱逐",identify_image=load_resource("map_ship_202006_dd_2.png", prefix))  #判断峡湾反击驱逐
+def ship_202006_sp3_3(prefix):
+    return Scene("检测峡湾反击驱逐",identify_image=load_resource("map_ship_202006_dd_3.png", prefix))  #判断峡湾反击驱逐
+
+###自己添加结束
 
 def difficult_small(prefix):
     return Scene('检测中型舰队标志',
-                 identify_image=load_resource("difficult_medium.png", prefix),
+                 identify_image=load_resource("difficult_small.png", prefix),
                  tap_offset_x=40, tap_offset_y=30, threshold=0.7)
 
 
@@ -30,17 +62,24 @@ def map_move_spec_question_mark(prefix):
 
 def load_target_ship_features(prefix):
     return [
+        ship_202006_sp3_1(prefix),
+        ship_202006_sp3_2(prefix),
+        ship_202006_sp3_3(prefix),
         Scene("检测旗舰", identify_image=load_resource("boss_icon_detection2.png", prefix), threshold=0.7),
         Scene("检测旗舰（带人物）", identify_image=load_resource("boss_small.png", prefix), threshold=0.7),
-        Scene("检测侦查舰队", identify_image=load_resource("map_ship_type_1.png", prefix)),  # 判断
+        map_move_spec_question_mark(prefix),
+        siren_DD_blue(prefix),
+        siren_light_blue(prefix),
+        siren_heavy_blue(prefix),  #判断塞壬蓝色重巡
+        siren_heavy_purple(prefix),  # 判断紫色塞壬重巡
+        Scene("检测运输舰队", identify_image=load_resource("map_ship_type_4.png", prefix)),  # 判断运输舰队
+        Scene("检测侦查舰队", identify_image=load_resource("map_ship_type_1.png", prefix)),  # 判断侦查
         Scene("检测航母舰队", identify_image=load_resource("map_ship_type_2.png", prefix)),  # 判断航母舰队
         Scene("检测主力舰队", identify_image=load_resource("map_ship_type_3.png", prefix)),  # 判断主力舰队
-        Scene("检测运输舰队", identify_image=load_resource("map_ship_type_4.png", prefix)),  # 判断侦查舰队
         Scene("检测舰队等级", identify_image=load_resource("enemy_level.png", prefix), threshold=0.6, tap_offset_y=-55),
         difficult_small(prefix),   # 小型舰队
         difficult_medium(prefix),  # 中型舰队
-        difficult_large(prefix),   # 大型舰队
-        map_move_spec_question_mark(prefix)
+        difficult_large(prefix)   # 大型舰队
     ]
 
 

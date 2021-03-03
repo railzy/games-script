@@ -2,10 +2,10 @@
 
 import sys
 
-from arknights.load_scenes import load_scenes as arknights_scenes
+#from arknights.load_scenes import load_scenes as arknights_scenes
 from azurelane.load_scenes import load_scenes as azurelane_scenes
 from common.device.c_android import AndroidDevice
-from common.device.c_ios import IOSDevice
+#from common.device.c_ios import IOSDevice
 from common.eventloop import EventLoop
 from common.logutil import logger
 from common.runtime import Config, Context

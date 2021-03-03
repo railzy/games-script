@@ -4,13 +4,25 @@ from common.tool import *
 from azurelane.scenes.enemy_search import EnemySearch
 import time
 
-
+'''
 def battle_fighting(prefix):
     s = Scene("检测战斗进行时",
               identify_image=load_resource("stop_auto_battle_detection.png", prefix),
               action_type='none',  # 不需要点击
               )
     return s
+'''
+
+###个人添加#####
+def battle_finished_continue(prefix):
+    return Scene("检测战斗完成界面",
+                 identify_image=load_resource("click_to_continue.png", prefix))
+
+
+def battle_finished_commander(prefix):
+    return Scene("检测战斗完成界面",
+                 identify_image=load_resource("battle_post_view.png", prefix))
+###个人添加结束
 
 
 def battle_strike_confirm(prefix):
@@ -32,7 +44,8 @@ def battle_team_choose(config, context, prefix):
         logger.info('第 %03d 次副本' % context.repeated_count)
 
     s = Scene("检测指定关卡出击队伍选择",
-              identify_image=load_resource("team_choose.png", prefix),
+              #identify_image=load_resource("team_choose.png", prefix),
+              identify_image=load_resource("choose_level_go_now_button.png", prefix),
               tap_image=load_resource("choose_level_go_now_button.png", prefix))
     s.before_action = before_action
     s.after_action = lambda _1, _2: time.sleep(5)
@@ -54,6 +67,9 @@ def battle_prepare(context, prefix):
 def battle_finished_evaluation(prefix):
     return Scene("检测战斗完成评价（S/A/B/C）界面",
                  identify_image=load_resource("battle_post_view_s_level.png", prefix))
+
+
+
 
 
 def battle_finished_item_list_check(prefix):
@@ -164,10 +180,12 @@ def load_scenes(prefix, config, context):
         enemy_search(prefix, config, context),  # 索敌
 
         battle_prepare(context, prefix),
-        battle_fighting(prefix),
+        #battle_fighting(prefix),
         battle_finished_evaluation(prefix),
+        battle_finished_continue(prefix),
         battle_finished_item_list_check(prefix),
+        battle_finished_team_exp(prefix),
         battle_finished_super_rare_character_confirm(prefix),
         battle_finished_lock_new_character(prefix),
-        battle_finished_team_exp(prefix)
+        battle_finished_commander(prefix)
     ]
